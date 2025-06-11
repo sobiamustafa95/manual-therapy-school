@@ -1,99 +1,138 @@
-# Manual Therapy School Digital Platform
+# manual therapy school digital platform
 
-A digital platform for Steven DiMarino's Manual Therapy School, focused on migraine and facial pain treatment. It digitizes practitioner intake, provides AI-driven protocol recommendations, and supports research data collection.
+a digital platform for steven dimarino's manual therapy school, focusing on migraine and facial pain treatment. it digitizes practitioner intake, provides ai-driven protocol recommendations, and supports research data collection.
 
-## About the Project
+## about the project
 
-This platform streamlines the practitioner intake process, leverages a GPT-based AI assistant for treatment recommendations, and enables secure admin management of a 400-page manual and instructional videos. It ensures anonymized data storage for research and integrates with third-party services for email and video streaming.
+this platform streamlines practitioner intake, uses a gpt-based ai assistant for treatment recommendations, and enables secure admin management of a 400-page manual and instructional videos. it ensures anonymized data storage for research and integrates with third-party services for email and video streaming.
 
-## Main Features
+## main features
 
-- Secure role-based authentication (Admin/Practitioner)
-- Practitioner Dashboard for intake forms and AI recommendations
-- Admin Panel for manual/video management and data oversight
-- GPT-powered AI assistant for tailored treatment plans
-- Anonymized data storage for research
-- Email notifications for intake PDFs
-- Instructional video streaming (YouTube/Vimeo)
-- Optional Zoom/Google Meet for live sessions
+- secure role-based authentication (admin/practitioner)
+- practitioner dashboard for intake forms and ai recommendations
+- admin panel for manual/video management and data oversight
+- gpt-powered ai assistant for tailored treatment plans
+- anonymized data storage for research
+- email notifications for intake pdfs
+- instructional video streaming (youtube/vimeo)
+- optional zoom/google meet for live sessions
 
-## Tech Stack
+## tech stack
 
-- **Frontend**: React, Vite, TypeScript, Tailwind CSS, shadcn/ui
-- **Form Handling**: React Hook Form, Yup
-- **State Management**: Zustand
-- **Data Fetching**: React Query
-- **Code Quality**: ESLint, Prettier, Husky
-- **Integrations**: OpenAI API, SendGrid, YouTube/Vimeo, Zoom/Google Meet (optional)
+- **frontend**: react, vite, typescript, tailwind css, shadcn/ui
+- **form handling**: react hook form, yup
+- **state management**: zustand
+- **data fetching**: react query
+- **code quality**: eslint, prettier, husky
+- **date handling**: dayjs (utc format)
+- **integrations**: openai api
 
-## Prerequisites
+## prerequisites
 
-- Node.js (>=18.x)
-- npm (>=9.x)
-- API keys for OpenAI, SendGrid, YouTube/Vimeo, and Zoom/Google Meet (optional)
+- node.js (>=18.x)
+- yarn (>=1.22.x)
+- api keys: openai 
 
-## Installation and Setup
+## installation and setup
 
-1. Clone the repository:
+1. clone the repository:
    ```bash
    git clone <repository-url>
    cd manual-therapy-school
    ```
 
-2. Install dependencies:
+2. install dependencies:
    ```bash
-   npm install
+   yarn 
    ```
 
-3. Set up environment variables:
-   Create a `.env` file in the root directory:
+3. set up environment variables:
+   create a `.env` file in the root:
    ```env
    VITE_OPENAI_API_KEY=your_openai_api_key
    VITE_SENDGRID_API_KEY=your_sendgrid_api_key
    VITE_YOUTUBE_API_KEY=your_youtube_api_key
-   VITE_ZOOM_API_KEY=your_zoom_api_key # Optional
    VITE_API_URL=http://localhost:3000/api
    ```
 
-4. Initialize Husky for Git hooks:
+4. initialize husky for git hooks:
    ```bash
-   npm run prepare
+   yarn prepare
    ```
 
-5. Run the development server:
+5. run the development server:
    ```bash
-   npm run dev
+   yarn dev
    ```
-   Access the app at [http://localhost:5173](http://localhost:5173).
+   access at [http://localhost:3000](http://localhost:3000).
 
-6. Lint and format code:
+6. lint and format code:
    ```bash
-   npm run lint
-   npm run format
+   yarn lint
+   yarn format
    ```
 
-## Usage
+## development rules
 
-- **Admin**: Log in to upload manuals, manage videos, and export anonymized data.
-- **Practitioner**: Submit intake forms, receive AI recommendations, and access videos.
+### project setup
+- **linter**: eslint with strict rules (no `any` type, naming conventions).
+- **prettier**: enforces code formatting.
+- **pre-commit**: husky runs linting, formatting, and lighthouse.
+- **build on push**: github actions triggers build on push to `main`.
 
-## Contributing
+### linter settings
+- enforce function/variable naming (camelcase for variables, pascalcase for components).
+- ban `any` type; use explicit types.
+- file naming: pascalcase for components (e.g., `IntakeForm.tsx`), lowercase for others (e.g., `common.ts`).
 
-1. Fork the repository.
-2. Create a feature branch:
+### folder structure
+```
+src/
+├── components/           # reusable components 
+├── constants/            # separated by purpose (e.g., api.ts, ui.ts)
+├── hooks/                # custom hooks (max 6-8 returns)
+├── pages/                # page-specific components/sections
+├── routes/               # routing logic
+├── services/             # state management (zustand)
+├── types/                # separated by purpose (e.g., auth.ts, intake.ts)
+├── utils/                # separated by purpose (e.g., format.ts, api.ts)
+├── index.css             # global styles (theme/colors/fonts)
+└── main.tsx
+```
+
+### strict don'ts
+- no hardcoded strings/enums; use constants.
+- no enums/types in component files; use `types/`.
+- no duplicated logic; centralize in `utils/`.
+- no logical utils in components.
+- no missing `useCallback` for `onClick` handlers.
+- no missing `useMemo` for prop/api-derived data.
+- no untyped api payloads or props.
+- no `any` type usage.
+
+### do's
+- use dayjs with utc format for dates.
+- configure theme/colors/fonts in `index.css`.
+- develop isolated components for reusability.
+
+## contributing
+
+1. fork the repository.
+2. create a feature branch:
    ```bash
-   git checkout -b feature/YourFeature
+   git checkout -b feature/your-feature
    ```
-3. Commit changes:
+3. run lighthouse and remove unused variables.
+4. commit changes (use prefixes like `fix:`, `chore:`, `feature:`):
    ```bash
-   git commit -m 'Add YourFeature'
+   git commit -m 'feature: add your feature'
    ```
-4. Push to the branch:
+5. push to the branch:
    ```bash
-   git push origin feature/YourFeature
+   git push origin feature/your-feature
    ```
-5. Open a Pull Request.
+6. open a pull request.
 
-## License
+## license
 
-[MIT License](LICENSE)
+[mit license](LICENSE)
